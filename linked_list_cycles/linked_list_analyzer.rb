@@ -1,7 +1,21 @@
 class LinkedListAnalyzer
-  attr_reader :first_node
+  def self.contains_cycle?(first_node:)
+   current_node = first_node
+   nodes = []
 
-  def initialize(first_node:)
-    @first_node = first_node
+   while true
+    next_node = current_node.next
+
+    if nodes.include?(next_node)
+      return false
+    end
+
+    if next_node.nil?
+      return true
+    end
+
+    nodes << next_node
+    current_node = next_node
+   end
   end
 end
