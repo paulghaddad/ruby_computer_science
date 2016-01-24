@@ -4,30 +4,30 @@ require "./linked_list_node"
 describe LinkedListAnalyzer do
   describe ".contains_cycle?" do
     context "does not contain a cycle" do
-      it "returns true if the linked list does not contain a cycle" do
+      it "returns false if the linked list does not contain a cycle" do
         first_node_in_list = non_cycle_list
+
+        cycle = LinkedListAnalyzer.contains_cycle?(first_node: first_node_in_list)
+
+        expect(cycle).to be_falsey
+      end
+    end
+
+    context "contains a cycle" do
+      it "returns true if the last node points back to the first node" do
+        first_node_in_list = cycle_list
 
         cycle = LinkedListAnalyzer.contains_cycle?(first_node: first_node_in_list)
 
         expect(cycle).to be_truthy
       end
-    end
 
-    context "contains a cycle" do
-      it "returns false if the last node points back to the first node" do
-        first_node_in_list = cycle_list
-
-        cycle = LinkedListAnalyzer.contains_cycle?(first_node: first_node_in_list)
-
-        expect(cycle).to be_falsey
-      end
-
-      it "returns false if a middle node points back to a previous node" do
+      it "returns true if a middle node points back to a previous node" do
         first_node_in_list = middle_cycle_list
 
         cycle = LinkedListAnalyzer.contains_cycle?(first_node: first_node_in_list)
 
-        expect(cycle).to be_falsey
+        expect(cycle).to be_truthy
       end
     end
   end

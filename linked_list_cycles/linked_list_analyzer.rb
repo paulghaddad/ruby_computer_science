@@ -1,21 +1,22 @@
 class LinkedListAnalyzer
   def self.contains_cycle?(first_node:)
-   current_node = first_node
-   nodes = []
 
-   while true
-    next_node = current_node.next
+    # start both runners at the beginning of the linked list
+    fast_runner = first_node
+    slow_runner = first_node
 
-    if nodes.include?(next_node)
-      return false
+    # until we hit the bottom of the list
+    until fast_runner == nil || fast_runner.next == nil
+      slow_runner = slow_runner.next
+      fast_runner = fast_runner.next.next
+
+      # case: fast_runner is about to lap slow runner
+      if fast_runner == slow_runner
+        return true
+      end
     end
 
-    if next_node.nil?
-      return true
-    end
-
-    nodes << next_node
-    current_node = next_node
-   end
+    # case: fast_runner hit the end of the list
+    return false
   end
 end
